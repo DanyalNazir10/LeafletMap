@@ -1,6 +1,6 @@
 import "./App.css";
 import "leaflet/dist/leaflet.css";
-import { MapContainer, TileLayer, Marker } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import { Icon } from "leaflet";
 import markerImg from "../src/assets/images/marker.png";
 
@@ -8,15 +8,15 @@ function App() {
   const markers = [
     {
       geocode: [31.4805, 74.3239],
-      popUp: "PopUp from model town",
+      popUp: "Popup from model town",
     },
     {
       geocode: [31.4697, 74.2728],
-      popUp: "PopUp from johar town",
+      popUp: "Popup from johar town",
     },
     {
       geocode: [31.5165, 74.3499],
-      popUp: "PopUp from gulberg",
+      popUp: "Popup from gulberg",
     },
   ];
   const customMrakerIcon = new Icon({
@@ -30,7 +30,11 @@ function App() {
         url="https://tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {markers.map((marker) => (
-        <Marker position={marker.geocode} icon={customMrakerIcon} />
+        <Marker key={markers.indexOf(marker)} position={marker.geocode} icon={customMrakerIcon}>
+          <Popup>
+            <h4>{marker.popUp}</h4>
+          </Popup>
+        </Marker>
       ))}
     </MapContainer>
   );
